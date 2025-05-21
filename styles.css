@@ -1,0 +1,29 @@
+#wordleContainer {
+    margin: auto;
+    width: 500px;
+    height: 550px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+}
+
+.wordleChild {
+    display: flex;
+    border: medium black solid;
+    justify-content: center;
+    align-items: center;
+    font-size: 50px;
+    font-weight: bold;
+    line-height: 0.001em;
+    background-color: white;
+    border-radius: 10px;
+}
+
+.invisible {
+    display: none;
+}
+
+body {
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
