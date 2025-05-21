@@ -2325,6 +2325,8 @@ var correctLetters = 0;
 console.log(correctWord);
 
 function restart(){
+    document.getElementById('restartBtn').blur();
+    
     correctWord = solutionsList[Math.floor(Math.random() * solutionsList.length)]
     currentRow = 1;
     currentCol = 1;
@@ -2372,25 +2374,29 @@ window.onload = function(){
         if (currentRow < 7){
             if (currentCol < 6){
                 if (alphabet.includes(e.key)){
-                    document.getElementById(`${currentRow}_${currentCol}`).innerHTML = e.key.toUpperCase();
-                    if (currentWord.length == 5){
-                        currentWord = currentWord.slice(0, -1);
-                    }  
-                    currentWord += e.key.toLowerCase();
+                    if (document.getElementById(`${currentRow}_${currentCol}`).style.backgroundColor !== 'red'){
+                        document.getElementById(`${currentRow}_${currentCol}`).innerHTML = e.key.toUpperCase();
+                        if (currentWord.length == 5){
+                            currentWord = currentWord.slice(0, -1);
+                        }  
+                        currentWord += e.key.toLowerCase();
 
-                    if (currentCol < 5){
-                        currentCol++;
+                        if (currentCol < 5){
+                            currentCol++;
+                        }
                     }
                 } else if (e.key == 'Backspace' && (currentCol > 1 || currentRow > 1)){
                     currentWord = currentWord.slice(0, -1);
 
                     if (currentCol !== 1){
                         if (currentCol == 5){
-                            if (document.getElementById(`${currentRow}_${currentCol}`).innerHTML !== ''){
-                                document.getElementById(`${currentRow}_${currentCol}`).innerHTML = '';
-                            } else{
-                                document.getElementById(`${currentRow}_${currentCol - 1}`).innerHTML = '';
-                                currentCol--;
+                            if (currentRow !== 6){
+                                if (document.getElementById(`${currentRow}_${currentCol}`).innerHTML !== ''){
+                                    document.getElementById(`${currentRow}_${currentCol}`).innerHTML = '';
+                                } else{
+                                    document.getElementById(`${currentRow}_${currentCol - 1}`).innerHTML = '';
+                                    currentCol--;
+                                }
                             }
                         } else{
                             document.getElementById(`${currentRow}_${currentCol - 1}`).innerHTML = '';
@@ -2417,10 +2423,11 @@ window.onload = function(){
 
                         
 
-                        if (correctLetters == 5){
-                            restart();
-                        } else if (currentRow == 6){
-                            restart();
+                        if (currentRow == 6){
+                            for (var b = 1; b < 6; b++){
+                                var whatColorElement = document.getElementById(`${currentRow}_${b}`);
+                                whatColorElement.style.backgroundColor = 'red';
+                            }
                         } else {
                             correctLetters = 0;
                             currentCol = 1;
@@ -2429,8 +2436,8 @@ window.onload = function(){
                         }
                         
                     } else{
-                        for (var a = 1; a < 6; a++){
-                            var whatColorElement = document.getElementById(`${currentRow}_${a}`);
+                        for (var c = 1; c < 6; c++){
+                            var whatColorElement = document.getElementById(`${currentRow}_${c}`);
                             whatColorElement.innerHTML = '';
                         }
                         
@@ -2442,4 +2449,3 @@ window.onload = function(){
         }
     });
 }
-
